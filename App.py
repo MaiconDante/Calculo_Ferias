@@ -22,5 +22,13 @@ with frame_title:
 frame_company = st.container(border=True)
 with frame_company:
     st.markdown("Forneça os dados a seguir :")
-    st.text_input(label="Empresa :", max_chars=50, placeholder="Digite aqui !!!")
-    st.text_input(label="Colaborador :", max_chars=50, placeholder="Digite aqui !!!")
+    company = st.text_input(label="Empresa :", max_chars=50, placeholder="Digite aqui !!!")
+    colaborater = st.text_input(label="Colaborador :", max_chars=50, placeholder="Digite aqui !!!")
+
+# Criação do container salário e opções
+frame_salary = st.container(border=True)
+with frame_salary:
+    salary = st.number_input(label="Salário: ", placeholder="Preencha o salário aqui R$")
+    st.write("Abono Pecuniário")
+    yes = st.checkbox(label="Sim")
+    no = st.checkbox(label="Não")
