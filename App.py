@@ -2,6 +2,25 @@
 import streamlit as st
 from fpdf import FPDF
 import pandas as pd
+import locale
+locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')  # Define o formato para o Brasil
+
+# Criando Funções dos botões
+def click_calcular():
+
+    if company.isdigit() or len(company) < 4:
+        st.error("O nome da [EMPRESA] deve conter letras e ter mais de 4 caracteres !!!")
+    else:
+        st.success(f"Empresa válida: {company}")
+        
+    if colaborater.isdigit() or len(colaborater) < 6:
+        st.error("O nome do [COLABORADOR] deve conter letras e ter mais de 6 caracteres !!!")
+    else:
+        st.success(f"Colaborador válido: {colaborater}")
+    if  salary != 0:
+        st.success(f"salário válido: {salary}")
+    else:
+        st.error("No campo salário digite apenas | NÚMEROS |")     
 
 # Caminho para o logotipo no local e rodapé
 image_path = "/Volumes/Projects/Python/Calculo_Ferias/rh_logo.jpg"
@@ -37,8 +56,8 @@ with frame_title:
 frame_company = st.container(border=True)
 with frame_company:
     st.markdown("Forneça os dados a seguir :")
-    company = st.text_input(label="Empresa :", max_chars=50, placeholder="Digite aqui !!!", key=("Empresa"))
-    colaborater = st.text_input(label="Colaborador :", max_chars=50, placeholder="Digite aqui !!!", key=("Colaborador"))
+    company = st.text_input(label="Empresa :", max_chars=50, placeholder="Digite aqui !!!", key=("empresa"))
+    colaborater = st.text_input(label="Colaborador :", max_chars=50, placeholder="Digite aqui !!!", key=("colaborador"))
 
 # Criação do container salário e opções
 frame_salary = st.container(border=True)
@@ -46,9 +65,12 @@ with frame_salary:
     # Criando duas colunas para salário e salário por dia
     col1, col2 = st.columns([8, 2])
     with col1:
-        salary = st.number_input(label="Salário: ", min_value=0, key="Salário")
+        salary = st.number_input(label="Salário:", min_value=0.0, format="%.2f", key="salario")
+        salary_formatted = locale.currency(salary, grouping=True)  # Formata com R$ e separadores
     with col2:
-        day_salary = st.number_input(label="Salário/Dia: ")
+        st.write("Salário/Dia: ")
+        salary_day = salary / 30
+        st.info(f"R$ {salary_day:.2f}")
     # Criando três colunas para os checkboxes do Abono Pecuniário, Adiantamento e quantidade de dias
     col1, col2, col3 = st.columns([2, 3, 3])
     with col1:
@@ -68,11 +90,15 @@ with frame_buttons:
     # Criando botões calcular e gerar pdf
     col1, col2, col3 = st.columns([10, 40, 10])
     with col1:
-        st.button(label="Calcular", key="calcular")
+        calculation = st.button(label="Calcular", key="calcular")
     with col2:
         bar_progress = st.progress(0, text="Ao clicar aguarde o processamento")
     with col3:
-        st.button(label="Gerar PDF", key="gerarpdf")
+        generator_pdf = st.button(label="Gerar PDF", key="gerarpdf")
+    col4, col5= st.columns([75,1])
+    with col4:
+        if calculation:
+            click_calcular()
 
 # Criação do container rodapé
 frame_end = st.container(border=True)
