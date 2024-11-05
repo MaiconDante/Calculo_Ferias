@@ -22,13 +22,22 @@ with frame_title:
 frame_company = st.container(border=True)
 with frame_company:
     st.markdown("Forneça os dados a seguir :")
-    company = st.text_input(label="Empresa :", max_chars=50, placeholder="Digite aqui !!!")
-    colaborater = st.text_input(label="Colaborador :", max_chars=50, placeholder="Digite aqui !!!")
+    company = st.text_input(label="Empresa :", max_chars=50, placeholder="Digite aqui !!!", key=("Empresa"))
+    colaborater = st.text_input(label="Colaborador :", max_chars=50, placeholder="Digite aqui !!!", key=("Colaborador"))
 
 # Criação do container salário e opções
 frame_salary = st.container(border=True)
 with frame_salary:
-    salary = st.number_input(label="Salário: ", placeholder="Preencha o salário aqui R$")
-    st.write("Abono Pecuniário")
-    yes = st.checkbox(label="Sim")
-    no = st.checkbox(label="Não")
+    salary = st.number_input(label="Salário: ", placeholder="Preencha o salário aqui R$", min_value=0, key="Salário")
+    # Criando duas colunas para os checkboxes do Abono Pecuniário, Adiantamento e quantidade de dias
+    col1, col2, col3 = st.columns([2, 3, 3])
+    with col1:
+        st.write("Abono Pecuniário")
+        yes_abono = st.checkbox(label="Sim", key="yes_abono")
+        no_abono = st.checkbox(label="Não", key="no_abono")
+    with col2:
+        st.write("Adiantamento Décimo Terceiro")
+        yes_decimo = st.checkbox(label="Sim", key="yes_decimo")
+        no_decimo = st.checkbox(label="Não", key="no_decimo")
+    with col3:
+        days_monetary = st.number_input(label="Dias de Abono: ", min_value=0, max_value=10,placeholder="Preencha a quantidade de dias de abono", key="DiasAbono")
