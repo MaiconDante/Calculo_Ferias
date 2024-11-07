@@ -26,16 +26,28 @@ def decimo_value():
 
 # Função imprimir recibo férias
 def vacation_receipt():
+    if_abono = abono_value() if abono_option == "Sim" else 0.0
+    if_tercoabono = one_third_abono() if abono_option == "Sim" else 0.0
+    if_decimo = decimo_value() if decimo_option == "Sim"else 0.0
+    value_1 = value_vacation()
+    value_2 = one_third_vacation()
+    total_value = value_1 + value_2 + if_abono + if_tercoabono + if_decimo
+
     st.info(f"""| RECIBO DE FÉRIAS |
     
-    | Empresa: {company}             |
-    | Colaborador: {colaborater}               |
-    | {days_vacation()} dias de Férias                    |
-    | Salário R$ {salary}                   |
-    | Férias R$ {value_vacation():.2f}                    |
-    | 1/3 de Férias R$ {one_third_vacation():.2f}              |
-    | Abono Pecuniário R$ {abono_value():.2f}           |
-    | 1/3 Abono Pecuniário R$ {one_third_abono():.2f}       |
+    | ---------------------------------------------------------------------|
+    | Empresa: {company}           
+    | Colaborador: {colaborater}               
+    | {days_vacation()} dias de Férias                    
+    | Salário R$ {salary}                   
+    | Férias R$ {value_vacation():.2f}                    
+    | 1/3 de Férias R$ {one_third_vacation():.2f}              
+    | Abono Pecuniário R$ {if_abono:.2f}           
+    | 1/3 Abono Pecuniário R$ {if_tercoabono:.2f}       
+    | Parcela 1 - Décimo Terceiro R$ {if_decimo:.2f} 
+    | ---------------------------------------------------------------------|
+    | TOTAL | R$ {total_value:.2f}
+    | ---------------------------------------------------------------------|
     """)
 
 # Função para validar os campos
