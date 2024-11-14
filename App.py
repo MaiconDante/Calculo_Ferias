@@ -1,8 +1,10 @@
 # Importando Bibliotecas
 import streamlit as st
 from fpdf import FPDF
-import pandas as pd
-import locale, time
+import locale, time, io, datetime
+
+date_today = datetime.date.today()
+formatted_date = date_today.strftime("%d de %B de %Y")
 
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')  # Define o formato para o Brasil
 
@@ -30,25 +32,28 @@ def decimo_value():
     return salary / 2 if decimo_option == "Sim" else 0.0
 
 def calcule_inss():
+    value1 = value_vacation()
+    value2 = one_third_vacation()
+    totalizer = value1 + value2
     range_1 = 0
     range_2 = 0
     range_3 = 0
-    if salary <= 1412:
-        range_1 = salary * 0.075
+    if salary <= salary_min:
+        range_1 = totalizer * 0.075
         
-    elif salary >= 1412.01 and salary <= 2666.68:
-        range_1 = 105.90
-        range_2 = (salary - 1412) * 0.09
+    elif salary >= salary_min+0.01 and salary <= 2666.68:
+        range_1 = (salary_min) * 0.075
+        range_2 = (totalizer - salary_min) * 0.09
        
     elif salary >= 2666.69 and salary <= 4000.03:
-        range_1 = 105.90
-        range_2 = 112.92
-        range_3 = (salary - 4000.03) * 0.12
+        range_1 = (salary_min) * 0.075
+        range_2 = (totalizer - salary_min) * 0.09
+        range_3 = (totalizer - 4000.03) * 0.12
        
     elif salary >= 4000.04:
-        range_1 = 105.90
-        range_2 = 112.92
-        range_3 = (salary - 4000.04) * 0.14
+        range_1 = (salary_min) * 0.075
+        range_2 = (totalizer - salary_min) * 0.09
+        range_3 = (totalizer- 4000.04) * 0.14
         
     total_inss = range_1 + range_2 + range_3
     return total_inss
@@ -109,6 +114,56 @@ def click_calcular():
     
     return valid
 
+# Função para criar o PDF
+def criar_pdf():
+    # Criando uma instância da classe FPDF
+    pdf = FPDF()
+
+    # Adicionando uma página
+    pdf.add_page()
+
+    # Adicionando a imagem de fundo
+    pdf.image('/Volumes/Projects/Python/Calculo_Ferias/receipt.jpg', 0, 0, 210, 297)  # Para cobrir toda a página A4 (210x297mm)
+
+    # Definindo a fonte para o texto
+    pdf.set_font("Arial", "B", 12)
+
+    # Recuperando os valores calculados
+    value_1 = value_vacation()
+    value_2 = one_third_vacation()
+    value_desconto = calcule_inss()
+    value_abono = abono_value()
+    value_one_third_abono = one_third_abono()
+    value_decimo = decimo_value()
+    total_value = value_1 + value_2 + value_abono + value_one_third_abono + value_decimo - value_desconto
+
+    # Adicionando texto no PDF
+    pdf.ln(49)
+    pdf.set_font("Arial", "B", 11)
+    pdf.cell(165, 10, f"{formatted_date}", ln=True, align="R")
+    pdf.ln(1)
+    pdf.set_font("Arial", "B", 17)
+    pdf.cell(0, 10, "| RECIBO DE FÉRIAS |", ln=True, align='C')
+    pdf.ln(8)
+
+    pdf.set_font("Arial", "B", 12)
+    pdf.cell(0, 10, f"Empresa: {company}", ln=True, align="C")
+    pdf.cell(0, 10, f"Colaborador: {colaborater}", ln=True, align="C")
+    pdf.cell(0, 10, f"{days_vacation()} dias de Férias", ln=True, align="C")
+    pdf.cell(0, 10, f"Salário R$ {salary:.2f}", ln=True, align="C")
+    pdf.cell(0, 10, f"Férias R$ {value_1:.2f}", ln=True, align="C")
+    pdf.cell(0, 10, f"1/3 de Férias R$ {value_2:.2f}", ln=True, align="C")
+    pdf.cell(0, 10, f"Abono Pecuniário R$ {value_abono:.2f}", ln=True, align="C")
+    pdf.cell(0, 10, f"1/3 Abono Pecuniário R$ {value_one_third_abono:.2f}", ln=True, align="C")
+    pdf.cell(0, 10, f"Parcela 1 - Décimo Terceiro R$ {value_decimo:.2f}", ln=True, align="C")
+    pdf.cell(0, 10, f"Desconto INSS - R$ {value_desconto:.2f}", ln=True, align="C")
+    pdf.ln(25)
+    pdf.set_font("Arial", "B", 28)
+    pdf.cell(0, 5, f"R$ {total_value:.2f}", ln=True, align='C')
+
+    # Retornando o PDF como bytes
+    return pdf
+
 # Caminho para o logotipo e rodapé
 image_path = "/Volumes/Projects/Python/Calculo_Ferias/rh_logo.jpg"
 image_end = "/Volumes/Projects/Python/Calculo_Ferias/rodape.png" 
@@ -146,18 +201,16 @@ def open_help_sidebar():
     st.sidebar.write("---------------------------")
     st.sidebar.markdown("""
                 <div class="justified-text">
-                    Sistema web de cálculo de férias,
-                    onde você coloca nome da empresa,
-                    nome do colaborador e o salário,
-                    com os dados o sistema ja cálcula o valor
-                    do dia de serviço, apresentando o valor
-                    na tela para o usuário, Após preencher
-                    corretamente todos os campos, você terá
-                    duas opções: clicar no botão "Calcular"
-                    para visualizar o cálculo em um popup no
-                    próprio sistema ou selecionar "Gerar PDF"
-                    para criar um documento pronto para impressão
-                    e visualização.
+                    Sistema web para cálculo de férias, no qual
+                    você pode inserir o nome da empresa, o nome
+                    do colaborador, o salário mínimo vigente e o
+                    salário do funcionário. Com base nessas informações,
+                    o sistema calcula automaticamente o valor diário do
+                    serviço e exibe o resultado na tela. Após preencher
+                    todos os campos corretamente, o usuário terá duas opções:
+                    clicar em "Calcular" para visualizar o resultado em um popup
+                    no próprio sistema ou selecionar "Gerar PDF" para criar um
+                    documento pronto para impressão e visualização.
                 </div>
                 """,
                 unsafe_allow_html=True)
@@ -172,10 +225,12 @@ with frame_title:
 # Criação do container empresa e colaborador
 frame_company = st.container(border=True)
 with frame_company:
-    col1, col2 = st.columns([10, 5])
+    col1, col2, col3 = st.columns([3, 5, 5])
     with col1:
-        st.markdown("Forneça os dados a seguir :")
+        st.markdown("Dados a seguir :")
     with col2:
+        salary_min = st.number_input("Digite o salário mínimo VIGENTE do ANO: ", min_value=0.0, format="%.2f", key="salariominimo")
+    with col3:
         if st.button("Informações do Sistema   |CLIQUE AQUI|  "):
             open_help_sidebar()
 
@@ -239,7 +294,22 @@ with frame_buttons:
                 progress_calcule()
                 st.session_state.popup_open = True
     with col3:
-        generator_pdf = st.button("Gerar PDF", key="gerarpdf")
+        generator_pdf = st.button(label="Gerar PDF", key="gerarpdf")
+        if generator_pdf:
+            # Criar o PDF
+            pdf = criar_pdf()
+            # Criando um buffer de memória para o PDF
+            pdf_buffer = io.BytesIO()
+            pdf.output(pdf_buffer)
+            pdf_buffer.seek(0)
+    
+            # Gerando o download do arquivo PDF
+            st.download_button(
+            label="Salvar Recibo",
+            data=pdf_buffer,
+            file_name="Recibo_Férias_Gerado.pdf",
+            mime="application/pdf"
+            )
 
     if st.session_state.popup_open:
         vacation_receipt()
