@@ -128,7 +128,7 @@ def criar_pdf():
     pdf.add_page()
 
     # Adicionando a imagem de fundo
-    pdf.image('/Volumes/Projects/Python/Calculo_Ferias/receipt.jpg', 0, 0, 210, 297)  # Para cobrir toda a página A4 (210x297mm)
+    pdf.image('./Calculo_Ferias/receipt.jpg', 0, 0, 210, 297)  # Para cobrir toda a página A4 (210x297mm)
 
     # Definindo a fonte para o texto
     pdf.set_font("Arial", "B", 12)
@@ -170,8 +170,8 @@ def criar_pdf():
     return pdf
 
 # Caminho para o logotipo e rodapé
-image_path = "/Volumes/Projects/Python/Calculo_Ferias/rh_logo.jpg"
-image_end = "/Volumes/Projects/Python/Calculo_Ferias/rodape.png" 
+image_path = "./Calculo_Ferias/rh_logo.jpg"
+image_end = "./Calculo_Ferias/rodape.png" 
 
 # CSS para centralizar o título
 st.markdown(
