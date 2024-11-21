@@ -300,7 +300,7 @@ with frame_buttons:
                 progress_calcule()
                 st.session_state.popup_open = True  # Definindo o estado como True após o cálculo
     with col3:
-        # O botão "Gerar PDF" só aparece se o popup for aberto
+         # O botão "Gerar PDF" só aparece se o popup for aberto
         if st.session_state.popup_open:
             generator_pdf = st.button(label="Gerar PDF", key="gerarpdf")
             if generator_pdf:
