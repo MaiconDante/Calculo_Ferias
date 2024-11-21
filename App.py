@@ -108,8 +108,9 @@ def click_calcular():
         st.error("O nome do [COLABORADOR] deve conter letras e ter mais de 6 caracteres !!!")
         valid = False
         
-    if salary <= 0:
-        st.error("No campo salário digite apenas | NÚMEROS |")
+    # Validação para o Abono Pecuniário
+    if abono_option == "Sim" and days_monetary == 0:
+        st.error("Ao selecionar 'Abono Pecuniário: Sim', é obrigatório informar a quantidade de dias!")
         valid = False
     
     return valid
@@ -229,7 +230,7 @@ with frame_company:
     with col1:
         st.markdown("Dados a seguir :")
     with col2:
-        salary_min = st.number_input("Digite o salário mínimo VIGENTE do ANO: ", min_value=0.0, format="%.2f", key="salariominimo")
+        salary_min = st.number_input("Digite o salário mínimo VIGENTE do ANO: ", min_value=1412.00, format="%.2f", key="salariominimo")
     with col3:
         if st.button("Informações do Sistema   |CLIQUE AQUI|  "):
             open_help_sidebar()
