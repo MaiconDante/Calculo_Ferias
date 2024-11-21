@@ -267,6 +267,7 @@ st.markdown(
     <style>
     .stButton>button {
         background-color: #114d69; /* Cor de fundo */
+        color: white; /* Cor do texto */
         border: none;
         padding: 10px 20px;
         text-align: center;
