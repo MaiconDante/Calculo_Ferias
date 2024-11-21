@@ -247,11 +247,13 @@ frame_salary = st.container(border=True)
 with frame_salary:
     col1, col2 = st.columns([8, 2])
     with col1:
-        salary = st.number_input("Salário:", min_value=0.0, format="%.2f", key="salario")
-        salary_day = salary / 30 if salary > 0 else 0
+        salary = st.number_input("Salário:", min_value=0.0, format="%.2f", key="salario", placeholder="0.00", value=None)
+        if salary:
+            salary_day = salary / 30 if salary > 0 else 0
     with col2:
         st.write("Salário/Dia:")
-        st.info(f"R$ {salary_day:.2f}")
+        if salary:
+            st.info(f"R$ {salary_day:.2f}")
 
     col1, col2, col3 = st.columns([2, 3, 3])
     with col1:
