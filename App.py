@@ -247,7 +247,7 @@ frame_salary = st.container(border=True)
 with frame_salary:
     col1, col2 = st.columns([8, 2])
     with col1:
-        salary = st.number_input("Salário:", min_value=0.0, format="%.2f", key="salario")
+        salary = st.number_input("Salário:", min_value=0.0, format="%.2f", key="salario", value=None, placeholder="0.00")
         salary_day = salary / 30 if salary > 0 else 0
     with col2:
         st.write("Salário/Dia:")
@@ -298,24 +298,26 @@ with frame_buttons:
             valid = click_calcular()
             if valid:
                 progress_calcule()
-                st.session_state.popup_open = True
+                st.session_state.popup_open = True  # Definindo o estado como True após o cálculo
     with col3:
-        generator_pdf = st.button(label="Gerar PDF", key="gerarpdf")
-        if generator_pdf:
-            # Criar o PDF
-            pdf = criar_pdf()
-            # Criando um buffer de memória para o PDF
-            pdf_buffer = io.BytesIO()
-            pdf.output(pdf_buffer)
-            pdf_buffer.seek(0)
-    
-            # Gerando o download do arquivo PDF
-            st.download_button(
-            label="Salvar Recibo",
-            data=pdf_buffer,
-            file_name="Recibo_Férias_Gerado.pdf",
-            mime="application/pdf"
-            )
+        # O botão "Gerar PDF" só aparece se o popup for aberto
+        if st.session_state.popup_open:
+            generator_pdf = st.button(label="Gerar PDF", key="gerarpdf")
+            if generator_pdf:
+                # Criar o PDF
+                pdf = criar_pdf()
+                # Criando um buffer de memória para o PDF
+                pdf_buffer = io.BytesIO()
+                pdf.output(pdf_buffer)
+                pdf_buffer.seek(0)
+
+                # Gerando o download do arquivo PDF
+                st.download_button(
+                    label="Salvar Recibo",
+                    data=pdf_buffer,
+                    file_name="Recibo_Férias_Gerado.pdf",
+                    mime="application/pdf"
+                )
 
     if st.session_state.popup_open:
         vacation_receipt()
