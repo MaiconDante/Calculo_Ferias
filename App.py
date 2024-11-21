@@ -6,7 +6,11 @@ import locale, time, io, datetime
 date_today = datetime.date.today()
 formatted_date = date_today.strftime("%d de %B de %Y")
 
-locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')  # Define o formato para o Brasil
+# Configurando o locale com fallback
+try:
+    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')  # Define o formato para o Brasil
+except locale.Error:
+    locale.setlocale(locale.LC_ALL, '')  # Usa o padrão do sistema se o locale não estiver disponível
 
 # Inicializa a sessão de estado para controle do pop-up
 if "popup_open" not in st.session_state:
