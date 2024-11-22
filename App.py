@@ -251,9 +251,11 @@ with frame_salary:
         if salary:
             salary_day = salary / 30 if salary > 0 else 0
     with col2:
-        st.write("Salário/Dia:")
+        st.info("Salário/Dia:")
         if salary:
             st.info(f"R$ {salary_day:.2f}")
+        else:
+            st.info("R$ 0,00")
 
     col1, col2, col3 = st.columns([2, 3, 3])
     with col1:
