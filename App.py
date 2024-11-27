@@ -104,7 +104,7 @@ def vacation_receipt():
 def click_calcular():
     valid = True
 
-    if company.isdigit() or len(company) < 4:
+    if company.isdigit() or len(company) < 6:
         st.error("O nome da [EMPRESA] deve conter letras e ter mais de 4 caracteres !!!")
         valid = False
         
