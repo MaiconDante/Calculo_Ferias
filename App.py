@@ -3,6 +3,17 @@ import streamlit as st
 from fpdf import FPDF
 import locale, time, io, datetime
 
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background-color: #457ca1; 
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 date_today = datetime.date.today()
 formatted_date = date_today.strftime("%d de %B de %Y")
 
@@ -270,7 +281,7 @@ st.markdown(
     """
     <style>
     .stButton>button {
-        background-color: #114d69; /* Cor de fundo */
+        background-color: #064f80; /* Cor de fundo */
         color: white; /* Cor do texto */
         border: none;
         padding: 10px 20px;
