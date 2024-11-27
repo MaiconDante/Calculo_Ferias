@@ -7,7 +7,10 @@ st.markdown(
     """
     <style>
     .stApp {
-        background-color: #457ca1; 
+        background-image: url('https://img.freepik.com/vetores-gratis/fundo-de-tecnologia-de-estilo-gradiente_23-2148884154.jpg?t=st=1732736491~exp=1732740091~hmac=c47d577271cc03f6646366e1488925d2b7945ffa5a69c5384bcb930d0f69b944&w=1060');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
     }
     </style>
     """,
