@@ -31,6 +31,29 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+st.markdown(
+    """
+    <style>
+    /* Força cor branca no texto em modo escuro */
+    html, body, [class*="css"] {
+        color: white !important;
+        background-color: #0E1117 !important; /* Garante fundo escuro */
+    }
+
+    /* Estiliza os botões para ficarem mais visíveis */
+    .stButton>button {
+        color: white;
+        background-color: #333;
+    }
+
+    .stButton>button:hover {
+        background-color: #444;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 date_today = datetime.date.today()
 formatted_date = date_today.strftime("%d de %B de %Y")
 
