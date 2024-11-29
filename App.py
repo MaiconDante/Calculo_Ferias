@@ -21,7 +21,7 @@ st.markdown(
     """
     <style>
     .stApp {
-        background-image: url('https://img.freepik.com/vetores-gratis/fundo-de-tecnologia-de-estilo-gradiente_23-2148884154.jpg?t=st=1732736491~exp=1732740091~hmac=c47d577271cc03f6646366e1488925d2b7945ffa5a69c5384bcb930d0f69b944&w=1060');
+        background-image: url('https://img.pikbest.com/backgrounds/20190901/blue-background-digital-technology-concept-circuits-background-v_1544010jpg!bwr800');
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
