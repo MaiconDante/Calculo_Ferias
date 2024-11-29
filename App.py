@@ -3,6 +3,20 @@ import streamlit as st
 from fpdf import FPDF
 import locale, time, io, datetime
 
+# Força o modo escuro e remove a opção de tema no menu de configurações
+st.set_page_config(layout="centered", initial_sidebar_state="expanded")
+
+st.markdown(
+    """
+    <style>
+    [data-testid="stToolbar"] { 
+        display: none !important; 
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 st.markdown(
     """
     <style>
