@@ -21,7 +21,7 @@ st.markdown(
     """
     <style>
     .stApp {
-        background-image: url('https://img.freepik.com/vetores-gratis/fundo-futurista-colorido-com-particulas-brilhantes_52683-42650.jpg?t=st=1733792239~exp=1733795839~hmac=73b01d81f3f2fe3231e87d823adf2eb125443d583ecfb2e520be82317bc47a1d&w=1380');
+        background-image: url("https://img.freepik.com/fotos-gratis/borda-geometrica-abstrata-pontos-de-conexao-design-de-vetor-de-tecnologia-digital_53876-160260.jpg?t=st=1733802253~exp=1733805853~hmac=835af7a314631213668fe9be53f2e378c6578681bc95fc94f557daf28d1bb644&w=1380");
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
