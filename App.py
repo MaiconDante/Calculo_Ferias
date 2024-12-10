@@ -21,7 +21,7 @@ st.markdown(
     """
     <style>
     .stApp {
-        background-image: url('https://img.pikbest.com/backgrounds/20190901/blue-background-digital-technology-concept-circuits-background-v_1544010jpg!bwr800');
+        background-image: url('https://img.freepik.com/vetores-gratis/fundo-futurista-colorido-com-particulas-brilhantes_52683-42650.jpg?t=st=1733792239~exp=1733795839~hmac=73b01d81f3f2fe3231e87d823adf2eb125443d583ecfb2e520be82317bc47a1d&w=1380');
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
@@ -232,6 +232,23 @@ st.markdown(
         text-align: center;
         font-size: 40px;  
         font-weight: bold;
+        color: white;
+    }
+    .dados{
+    color: white;
+    }
+    .stNumberInput > label {
+            color: white !important;
+    }
+    .stButton > button {
+            color: white !important;
+            cursor: pointer;
+    }
+    .stTextInput > label {
+        color: white;
+    }
+    .stContainer {
+        background-color: red;
     }
     </style>
     """,
@@ -272,7 +289,7 @@ def open_help_sidebar():
                 unsafe_allow_html=True)
 
 # Criação do container título e logotipo
-frame_title = st.container(border=True)
+frame_title = st.container()
 with frame_title:
     col1, col2 = st.columns([1, 3]) 
     col1.image(image_path)
@@ -283,11 +300,11 @@ frame_company = st.container(border=True)
 with frame_company:
     col1, col2, col3 = st.columns([3, 5, 5])
     with col1:
-        st.markdown("Dados a seguir :")
+        st.markdown('<p class="dados"> Dados a seguir :</p>', unsafe_allow_html=True)
     with col2:
         salary_min = st.number_input("Digite o salário mínimo VIGENTE do ANO: ", min_value=1412.00, format="%.2f", key="salariominimo")
     with col3:
-        if st.button("Informações do Sistema   |CLIQUE AQUI|  "):
+        if st.button("Informações do Sistema   CLIQUE AQUI  "):
             open_help_sidebar()
 
     company = st.text_input("Empresa :", max_chars=50, placeholder="Digite aqui !!!", key="empresa")
