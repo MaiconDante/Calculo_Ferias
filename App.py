@@ -1,16 +1,7 @@
 # Importando Bibliotecas
 import streamlit as st
 from fpdf import FPDF
-import locale, time, io, datetime, base64
-
-# Função para carregar a imagem como base64
-def load_image_base64(image_pathing):
-    with open(image_pathing, "rb") as image_file:
-        encoded_string = base64.b64encode(image_file.read()).decode()
-    return f"data:image/jpeg;base64,{encoded_string}"
-
-image_pathing = "./Assets/sistemawall.jpg"
-background_image = load_image_base64(image_pathing)
+import locale, time, io, datetime
 
 # Força o modo escuro e remove a opção de tema no menu de configurações
 st.set_page_config(layout="centered", initial_sidebar_state="expanded")
@@ -27,14 +18,14 @@ st.markdown(
 )
 
 st.markdown(
-    f"""
+    """
     <style>
-    .stApp {{
-        background-image: url("{background_image}");
+    .stApp {
+        background-image: url("https://wallpapers.com/images/hd/blue-hd-1920-x-1080-background-3i6f8k97bedzzfpp.jpg");
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
-    }}
+    }
     </style>
     """,
     unsafe_allow_html=True
