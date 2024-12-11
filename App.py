@@ -1,7 +1,16 @@
 # Importando Bibliotecas
 import streamlit as st
 from fpdf import FPDF
-import locale, time, io, datetime
+import locale, time, io, datetime, base64
+
+# Função para carregar a imagem como base64
+def load_image_base64(image_pathing):
+    with open(image_pathing, "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read()).decode()
+    return f"data:image/jpeg;base64,{encoded_string}"
+
+image_pathing = "./Assets/sistemawall.jpg"
+background_image = load_image_base64(image_pathing)
 
 # Força o modo escuro e remove a opção de tema no menu de configurações
 st.set_page_config(layout="centered", initial_sidebar_state="expanded")
@@ -18,14 +27,14 @@ st.markdown(
 )
 
 st.markdown(
-    """
+    f"""
     <style>
-    .stApp {
-        background-image: url("https://img.freepik.com/fotos-gratis/borda-geometrica-abstrata-pontos-de-conexao-design-de-vetor-de-tecnologia-digital_53876-160260.jpg?t=st=1733802253~exp=1733805853~hmac=835af7a314631213668fe9be53f2e378c6578681bc95fc94f557daf28d1bb644&w=1380");
+    .stApp {{
+        background-image: url("{background_image}");
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
-    }
+    }}
     </style>
     """,
     unsafe_allow_html=True
@@ -43,7 +52,7 @@ st.markdown(
     /* Estiliza os botões para ficarem mais visíveis */
     .stButton>button {
         color: white;
-        background-color: #333;
+        background-color: #49b7f2;
     }
 
     .stButton>button:hover {
@@ -245,6 +254,9 @@ st.markdown(
             cursor: pointer;
     }
     .stTextInput > label {
+        color: white;
+    }
+    .stRadio > label {
         color: white;
     }
     .stContainer {
