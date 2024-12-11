@@ -21,7 +21,7 @@ st.markdown(
     """
     <style>
     .stApp {
-        background-image: url("https://wallpapers.com/images/hd/blue-hd-1920-x-1080-background-3i6f8k97bedzzfpp.jpg");
+        background-image: url("https://png.pngtree.com/thumb_back/fh260/background/20210915/pngtree-geometric-line-pattern-white-gold-gradient-minimalist-background-image_879490.jpg");
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
@@ -34,20 +34,10 @@ st.markdown(
 st.markdown(
     """
     <style>
-    /* Força cor branca no texto em modo escuro */
-    html, body, [class*="css"] {
-        color: white !important;
-        background-color: #0E1117 !important; /* Garante fundo escuro */
-    }
 
     /* Estiliza os botões para ficarem mais visíveis */
-    .stButton>button {
-        color: white;
-        background-color: #49b7f2;
-    }
-
-    .stButton>button:hover {
-        background-color: #444;
+    * {
+        color: black;
     }
     </style>
     """,
@@ -232,26 +222,39 @@ st.markdown(
         text-align: center;
         font-size: 40px;  
         font-weight: bold;
-        color: white;
+        color: black;
     }
     .dados{
-    color: white;
+    color: black;
     }
     .stNumberInput > label {
-            color: white !important;
+            color: black !important;
     }
     .stButton > button {
             color: white !important;
             cursor: pointer;
     }
     .stTextInput > label {
-        color: white;
+        color: black;
     }
     .stRadio > label {
-        color: white;
+        color: black;
     }
-    .stContainer {
-        background-color: red;
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    """
+    <style>
+    .custom-info {
+        background-color: #1e71a8; /* Cor de fundo semelhante ao st.info */
+        padding: 10px;
+        border-radius: 5px;
+        color: white; /* Cor do texto */
+        font-weight: bold;
+        font-family: "Arial", sans-serif;
     }
     </style>
     """,
@@ -265,6 +268,7 @@ def open_help_sidebar():
         """
         <style>
             .justified-text {
+                color: white ;
                 text-align: justify;
                 text-justify: inter-word;
             }
@@ -322,11 +326,24 @@ with frame_salary:
         if salary:
             salary_day = salary / 30 if salary > 0 else 0
     with col2:
-        st.info("Salário/Dia:")
         if salary:
-            st.info(f"R$ {salary_day:.2f}")
+            st.markdown(
+            f"""
+            <div class="custom-info">
+            Salário/Dia: R$ {salary_day:.2f}
+            </div>
+            """,
+            unsafe_allow_html=True
+            )
         else:
-            st.info("R$ 0,00")
+            st.markdown(
+            """
+            <div class="custom-info">
+            Salário/Dia: R$ 0,00
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
     col1, col2, col3 = st.columns([2, 3, 3])
     with col1:
@@ -341,8 +358,8 @@ st.markdown(
     """
     <style>
     .stButton>button {
-        background-color: #064f80; /* Cor de fundo */
-        color: white; /* Cor do texto */
+        background-color: #89caf5; /* Cor de fundo */
+        color: black; /* Cor do texto */
         border: none;
         padding: 10px 20px;
         text-align: center;
@@ -355,7 +372,7 @@ st.markdown(
     }
     .stButton>button:hover {
         background-color: #1198d6; /* Cor ao passar o mouse */
-        color: white; /* Cor do texto */
+        color: black; /* Cor do texto */
     }
     </style>
     """,
