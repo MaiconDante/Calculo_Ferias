@@ -3,7 +3,6 @@ import streamlit as st
 from fpdf import FPDF
 import locale, time, io, datetime
 
-# Força o modo escuro e remove a opção de tema no menu de configurações
 st.set_page_config(layout="centered", initial_sidebar_state="expanded")
 
 st.markdown(
@@ -34,8 +33,6 @@ st.markdown(
 st.markdown(
     """
     <style>
-
-    /* Estiliza os botões para ficarem mais visíveis */
     * {
         color: black;
     }
@@ -224,11 +221,17 @@ st.markdown(
         font-weight: bold;
         color: black;
     }
+    .centered-rodape {
+        text-align: center;
+        font-size: 12px;  
+        font-weight: bold;
+        color: darkblue;
+    }
     .dados{
     color: black;
     }
-    .stNumberInput > label {
-            color: black !important;
+    .stNumberInput > {
+            color: red !important;
     }
     .stButton > button {
             color: white !important;
@@ -268,16 +271,20 @@ def open_help_sidebar():
         """
         <style>
             .justified-text {
-                color: white ;
+                color: red ;
                 text-align: justify;
                 text-justify: inter-word;
             }
+            .red-text {
+            color: red;
+            font-weight: bold;
+        }
         </style>
         """,
         unsafe_allow_html=True
     )
     st.sidebar.write("---------------------------")
-    st.sidebar.warning("Como funciona o sistema?")
+    st.sidebar.markdown('<div class="red-text">Como funciona o sistema?</div>', unsafe_allow_html=True)
     st.sidebar.write("---------------------------")
     st.sidebar.markdown("""
                 <div class="justified-text">
@@ -368,7 +375,6 @@ st.markdown(
         font-size: 16px;
         margin: 4px 2px;
         cursor: pointer;
-        border-radius: 5px; /* Bordas arredondadas */
     }
     .stButton>button:hover {
         background-color: #1198d6; /* Cor ao passar o mouse */
@@ -421,3 +427,7 @@ with frame_buttons:
 frame_end = st.container(border=True)
 with frame_end:
     st.image(image_end)
+
+frame_dev = st.container(border=True)
+with frame_end:
+    st.markdown('<div class="centered-rodape">Sistema web desenvolvido por Maicon Dante™</div>', unsafe_allow_html=True)
