@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "calculo-ferias"
+version = "0.1.0"
+description = ""
+authors = ["Maicondante <maicondante@hotmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+streamlit = "^1.39.0"
+fpdf2 = "^2.8.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
